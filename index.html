@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Juan Diego Guio · Webs y automatizaciones para negocios</title>
+<meta name="description" content="Webs para bares, restaurantes y comercios, automatizaciones con Excel y soporte informático. Oviedo y en remoto.">
+<meta property="og:title" content="Juan Diego Guio · Webs y automatizaciones para negocios">
+<meta property="og:description" content="Webs para bares, restaurantes y comercios, automatizaciones con Excel y soporte informático.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="saltar" href="#contenido">Ir al contenido</a>
+
+<header class="cabecera">
+  <a class="firma" href="#inicio" data-config="nombre">Juan Diego Guio</a>
+  <nav aria-label="Secciones">
+    <a href="#servicios">Servicios</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
+
+<main id="contenido">
+  <section class="portada" id="inicio">
+    <div class="portada-texto">
+      <h1>Webs y automatizaciones para negocios que no tienen tiempo para la informática</h1>
+      <p class="entradilla">Monto la web de tu bar, tienda o negocio, automatizo las tareas que haces a mano con Excel y te resuelvo los problemas del ordenador. Trabajo con inteligencia artificial, así que entrego rápido y con precio cerrado antes de empezar.</p>
+      <div class="acciones">
+        <a class="boton principal" href="#contacto">Pedir presupuesto</a>
+        <a class="boton" href="#proyectos">Ver proyectos</a>
+      </div>
+      <p class="lugar" data-config="ubicacion">Oviedo, Asturias · también en remoto</p>
+    </div>
+
+    <figure class="comanda" aria-label="Comanda con los tres servicios">
+      <div class="comanda-papel">
+        <p class="comanda-cab"><span>COMANDA</span><span>MESA 01</span></p>
+        <p class="comanda-hora" id="comanda-hora">--:--</p>
+        <ol class="comanda-lineas">
+          <li><span class="cant">1×</span> Web para tu negocio<small>carta, horario, reservas</small></li>
+          <li><span class="cant">1×</span> Automatización<small>adiós al copiar y pegar</small></li>
+          <li><span class="cant">1×</span> Soporte informático<small>PC, correo, impresoras</small></li>
+        </ol>
+        <p class="comanda-nota">Nota: precio cerrado, sin sorpresas</p>
+        <p class="comanda-pie">*** MARCHANDO ***</p>
+      </div>
+    </figure>
+  </section>
+
+  <section class="servicios" id="servicios" aria-labelledby="titulo-servicios">
+    <h2 id="titulo-servicios">Servicios</h2>
+    <div class="rejilla-servicios">
+      <article class="servicio">
+        <h3>Webs para negocios locales</h3>
+        <p>Una web que responde a lo que pregunta tu cliente antes de venir: qué ofreces, cuánto cuesta, si estás abierto y cómo reservar o contactar.</p>
+        <ul>
+          <li>Se ve bien en el móvil, que es desde donde te buscan</li>
+          <li>Reservas o pedidos que te llegan por WhatsApp o correo</li>
+          <li>Cambias precios y horarios tú mismo, o te lo cambio yo</li>
+          <li>Publicada con tu dominio</li>
+        </ul>
+      </article>
+      <article class="servicio">
+        <h3>Automatizaciones</h3>
+        <p>Si cada semana o cada mes copias datos de un sitio a otro, eso se puede hacer solo.</p>
+        <ul>
+          <li>Juntar varios Excel en un informe</li>
+          <li>Resúmenes de gastos, ventas o stock</li>
+          <li>Avisos por correo cuando algo cambia</li>
+          <li>Pequeñas herramientas a medida, como calculadoras de costes</li>
+        </ul>
+      </article>
+      <article class="servicio">
+        <h3>Soporte informático</h3>
+        <p>El ordenador que va lento, la impresora que no imprime, el correo que no llega.</p>
+        <ul>
+          <li>Instalar y configurar Windows y programas</li>
+          <li>Correo, Office y copias de seguridad</li>
+          <li>Resolver errores y dejarlo explicado</li>
+          <li>En Oviedo en persona, o en remoto</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="proyectos" id="proyectos" aria-labelledby="titulo-proyectos">
+    <h2 id="titulo-proyectos">Proyectos</h2>
+    <p class="intro">Proyectos de demostración, pensados para problemas reales de la hostelería, que es el sector que conozco desde dentro. Puedes probarlos y ver el código.</p>
+
+    <article class="proyecto">
+      <div class="proyecto-texto">
+        <h3>Web para una sidrería</h3>
+        <p>Carta por secciones, horario y un indicador de abierto o cerrado que usa la hora de Oviedo. Las reservas solo ofrecen horas en las que el local abre y llegan por WhatsApp ya escritas.</p>
+        <p class="tecnica">HTML, CSS y JavaScript sin librerías</p>
+        <div class="enlaces">
+          <a class="boton principal" href="proyectos/web-sidreria/">Ver la web</a>
+          <a class="boton" data-codigo="proyectos/web-sidreria">Ver el código</a>
+        </div>
+      </div>
+      <div class="muestra muestra-sidreria" aria-hidden="true">
+        <span class="m-estado">Abierto ahora · cierra a las 23:30</span>
+        <span class="m-titulo">Sidra escanciada y cocina de casa</span>
+        <span class="m-linea"><b>Fabada asturiana</b><i>14,50 €</i></span>
+        <span class="m-linea"><b>Cachopo de ternera</b><i>26,00 €</i></span>
+        <span class="m-boton">Reservar mesa</span>
+      </div>
+    </article>
+
+    <article class="proyecto">
+      <div class="proyecto-texto">
+        <h3>Calculadora de escandallos</h3>
+        <p>Calcula el coste real de cada ración, con las mermas de limpiar y cocinar, y el precio al que hay que venderla. Si escribes el precio de tu carta, te dice si estás perdiendo margen.</p>
+        <p class="tecnica">JavaScript sin librerías · guarda recetas en el navegador · exporta a Excel</p>
+        <div class="enlaces">
+          <a class="boton principal" href="proyectos/calculadora-escandallos/">Probar la calculadora</a>
+          <a class="boton" data-codigo="proyectos/calculadora-escandallos">Ver el código</a>
+        </div>
+      </div>
+      <div class="muestra muestra-escandallo" aria-hidden="true">
+        <span class="m-fila"><b>Coste por ración</b><i>6,04 €</i></span>
+        <span class="m-fila grande"><b>Precio recomendado</b><i>22,13 €</i></span>
+        <span class="m-aviso">A 18 € en carta: food cost del 36,9 %</span>
+      </div>
+    </article>
+
+    <article class="proyecto">
+      <div class="proyecto-texto">
+        <h3>Resumen mensual de gastos</h3>
+        <p>Un script que junta las facturas de todos los proveedores en Excel y saca el informe del mes: cuánto se ha gastado, con quién, en qué y qué productos han subido de precio.</p>
+        <p class="tecnica">Python solo con la librería estándar · lee Excel sin instalar nada</p>
+        <div class="enlaces">
+          <a class="boton principal" href="proyectos/automatizacion-gastos/salida/resumen_2026-09.html">Ver un informe de ejemplo</a>
+          <a class="boton" data-codigo="proyectos/automatizacion-gastos">Ver el código</a>
+        </div>
+      </div>
+      <div class="muestra muestra-gastos" aria-hidden="true">
+        <span class="m-total">7.544,98 €</span>
+        <span class="m-barra" style="--w:100%"><b>Carne</b></span>
+        <span class="m-barra" style="--w:80%"><b>Bebida</b></span>
+        <span class="m-barra" style="--w:71%"><b>Pescado</b></span>
+        <span class="m-sube">Lechuga +12,2 %</span>
+      </div>
+    </article>
+  </section>
+
+  <section class="proceso" aria-labelledby="titulo-proceso">
+    <h2 id="titulo-proceso">Cómo trabajo</h2>
+    <ol class="pasos">
+      <li><h3>Me cuentas qué necesitas</h3><p>Por WhatsApp, correo o en persona si estás en Oviedo. Sin tecnicismos.</p></li>
+      <li><h3>Te paso un presupuesto cerrado</h3><p>Qué incluye, cuánto cuesta y cuándo está. Si cambia algo, lo hablamos antes.</p></li>
+      <li><h3>Ves una primera versión</h3><p>Pronto, para corregir sobre algo real y no sobre una idea.</p></li>
+      <li><h3>Te lo entrego funcionando</h3><p>Publicado, probado y explicado para que lo puedas usar sin depender de mí.</p></li>
+    </ol>
+  </section>
+
+  <section class="sobre" aria-labelledby="titulo-sobre">
+    <h2 id="titulo-sobre">Sobre mí</h2>
+    <div class="sobre-texto">
+      <p>Soy Juan Diego, tengo 19 años y vivo en Oviedo. Trabajo en la cocina de un club de tenis y estudio Desarrollo de Aplicaciones Multiplataforma.</p>
+      <p>Lo que más se me da es entender un problema y buscar cómo resolverlo. Uso la inteligencia artificial como herramienta de trabajo, y eso me permite entregar en días lo que antes llevaba semanas.</p>
+      <p>Conozco la hostelería desde dentro: sé lo que es un servicio a tope, lo que cuesta un plato y por qué el dueño de un bar no tiene tiempo para pelearse con el ordenador.</p>
+    </div>
+  </section>
+
+  <section class="contacto" id="contacto" aria-labelledby="titulo-contacto">
+    <h2 id="titulo-contacto">Hablemos</h2>
+    <p>Cuéntame qué necesitas y te respondo con un presupuesto cerrado.</p>
+    <div class="vias">
+      <div class="via">
+        <span class="via-etiqueta">Correo</span>
+        <span class="via-valor" id="email-texto" data-config="email"></span>
+        <button class="boton" type="button" id="copiar-email">Copiar correo</button>
+      </div>
+      <div class="via" id="via-whatsapp" hidden>
+        <span class="via-etiqueta">WhatsApp</span>
+        <span class="via-valor" id="whatsapp-texto"></span>
+        <a class="boton principal" id="enlace-whatsapp" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+      </div>
+    </div>
+    <p class="copiado" id="copiado" role="status"></p>
+  </section>
+</main>
+
+<footer class="pie">
+  <p>© <span id="anio"></span> <span data-config="nombre">Juan Diego Guio</span> · Oviedo, Asturias</p>
+  <p><a id="enlace-github" hidden>GitHub</a></p>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

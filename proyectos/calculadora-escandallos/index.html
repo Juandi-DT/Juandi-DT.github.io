@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora de escandallos</title>
+<meta name="description" content="Calcula el coste por ración de un plato, con mermas, y el precio de venta según tu food cost objetivo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="barra">
+  <div>
+    <h1>Escandallo</h1>
+    <p>Coste real por ración, con mermas, y el precio al que tienes que vender.</p>
+  </div>
+  <div class="barra-acciones">
+    <button class="btn" type="button" id="nueva">Nueva receta</button>
+    <button class="btn" type="button" id="exportar">Descargar CSV</button>
+    <button class="btn" type="button" id="imprimir">Imprimir ficha</button>
+  </div>
+</header>
+
+<main class="hoja">
+  <section class="receta" aria-labelledby="titulo-receta">
+    <h2 id="titulo-receta" class="oculto">Datos de la receta</h2>
+    <div class="campo ancho">
+      <label for="nombre">Plato</label>
+      <input id="nombre" autocomplete="off">
+    </div>
+    <div class="campo">
+      <label for="raciones">Raciones que salen</label>
+      <input id="raciones" type="number" min="1" step="1" inputmode="numeric">
+    </div>
+    <div class="campo">
+      <label for="objetivo">Food cost objetivo</label>
+      <div class="con-unidad"><input id="objetivo" type="number" min="5" max="90" step="1" inputmode="decimal"><span>%</span></div>
+    </div>
+    <div class="campo">
+      <label for="iva">IVA</label>
+      <div class="con-unidad"><input id="iva" type="number" min="0" max="30" step="1" inputmode="decimal"><span>%</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="titulo-ingredientes">
+    <div class="cabecera-seccion">
+      <h2 id="titulo-ingredientes">Ingredientes</h2>
+      <button class="btn principal" type="button" id="anadir">Añadir ingrediente</button>
+    </div>
+    <div class="tabla-envoltorio">
+      <table class="ingredientes">
+        <thead>
+          <tr>
+            <th scope="col">Ingrediente</th>
+            <th scope="col">En el plato</th>
+            <th scope="col">Unidad</th>
+            <th scope="col">Precio de compra</th>
+            <th scope="col">Merma</th>
+            <th scope="col" class="num">Coste</th>
+            <th scope="col"><span class="oculto">Quitar</span></th>
+          </tr>
+        </thead>
+        <tbody id="filas"></tbody>
+      </table>
+    </div>
+    <p class="ayuda">"En el plato" es la cantidad limpia que lleva la receta. La merma es lo que se pierde al limpiar o cocinar (huesos, piel, recortes): la calculadora compra de más para compensarla.</p>
+  </section>
+
+  <section class="resultado" aria-labelledby="titulo-resultado" aria-live="polite">
+    <h2 id="titulo-resultado">Resultado</h2>
+    <dl class="cifras">
+      <div><dt>Coste de la receta</dt><dd id="r-total">—</dd></div>
+      <div class="clave"><dt>Coste por ración</dt><dd id="r-racion">—</dd></div>
+      <div class="clave"><dt>Precio de venta recomendado</dt><dd id="r-pvp">—</dd><p class="detalle" id="r-pvp-sin">—</p></div>
+      <div><dt>Margen bruto por ración</dt><dd id="r-margen">—</dd></div>
+    </dl>
+    <div class="comprobar">
+      <label for="pvp-real">¿Y si lo vendes a…?</label>
+      <div class="con-unidad"><input id="pvp-real" type="number" min="0" step="0.1" inputmode="decimal" placeholder="Precio en carta"><span>€</span></div>
+      <p id="r-real" class="veredicto">Escribe el precio de carta para ver tu food cost real.</p>
+    </div>
+  </section>
+
+  <section class="guardadas" aria-labelledby="titulo-guardadas">
+    <div class="cabecera-seccion">
+      <h2 id="titulo-guardadas">Recetas guardadas</h2>
+      <button class="btn principal" type="button" id="guardar">Guardar receta</button>
+    </div>
+    <p class="aviso-guardado" id="aviso" role="status"></p>
+    <ul id="lista-recetas" class="lista-recetas"></ul>
+  </section>
+</main>
+
+<footer class="pie">
+  Hecho por <a href="../../index.html">Juan Diego Guio</a> · HTML, CSS y JavaScript sin librerías. Las recetas se guardan solo en este navegador.
+</footer>
+
+<template id="plantilla-fila">
+  <tr>
+    <td data-titulo="Ingrediente"><input class="i-nombre" aria-label="Ingrediente" placeholder="Ej.: ternera"></td>
+    <td data-titulo="En el plato"><input class="i-cantidad" type="number" min="0" step="any" inputmode="decimal" aria-label="Cantidad en el plato"></td>
+    <td data-titulo="Unidad">
+      <select class="i-unidad" aria-label="Unidad">
+        <option value="g">g</option><option value="kg">kg</option>
+        <option value="ml">ml</option><option value="l">l</option>
+        <option value="ud">ud</option>
+      </select>
+    </td>
+    <td data-titulo="Precio de compra">
+      <div class="con-unidad"><input class="i-precio" type="number" min="0" step="any" inputmode="decimal" aria-label="Precio de compra"><span class="i-por">€/kg</span></div>
+    </td>
+    <td data-titulo="Merma"><div class="con-unidad"><input class="i-merma" type="number" min="0" max="95" step="any" inputmode="decimal" aria-label="Merma en porcentaje"><span>%</span></div></td>
+    <td data-titulo="Coste" class="num i-coste">—</td>
+    <td><button class="quitar" type="button" aria-label="Quitar ingrediente">×</button></td>
+  </tr>
+</template>
+
+<script src="app.js"></script>
+</body>
+</html>

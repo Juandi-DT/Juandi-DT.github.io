@@ -1,0 +1,152 @@
+/* Sidrería La Tonada: piedra clara, verde de botella de sidra y el dorado de la manzana.
+   Una columna en móvil; portada en dos columnas desde 820px. */
+:root {
+  --piedra: #eef0ea;
+  --papel: #fbfcf9;
+  --tinta: #1f2a1d;
+  --suave: #56624f;
+  --botella: #2c5a35;
+  --botella-oscura: #1d3f25;
+  --manzana: #c8961e;
+  --linea: #d3d8cc;
+  --serif: "Alegreya", Georgia, "Times New Roman", serif;
+  --sans: "Alegreya Sans", "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--piedra);
+  color: var(--tinta);
+  font: 18px/1.55 var(--sans);
+}
+a { color: var(--botella); }
+:focus-visible { outline: 3px solid var(--manzana); outline-offset: 2px; }
+
+.demo {
+  margin: 0;
+  padding: 8px 16px;
+  background: var(--tinta);
+  color: var(--piedra);
+  font-size: .85rem;
+  text-align: center;
+}
+
+/* Cabecera */
+.cabecera {
+  position: sticky; top: 0; z-index: 5;
+  display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; justify-content: space-between;
+  padding: 12px clamp(16px, 4vw, 48px);
+  background: color-mix(in srgb, var(--piedra) 92%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--linea);
+}
+.marca {
+  display: flex; align-items: center; gap: 8px;
+  font: 800 1.45rem/1 var(--serif); color: var(--tinta); text-decoration: none;
+}
+.botella { width: 14px; height: 28px; fill: var(--botella); }
+.cabecera nav { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+.cabecera nav a { color: var(--tinta); text-decoration: none; font-weight: 500; padding: 4px 0; }
+.cabecera nav a:hover { color: var(--botella); text-decoration: underline; text-underline-offset: 4px; }
+
+main > section { padding-inline: clamp(16px, 4vw, 48px); padding-block: 56px; max-width: 1100px; margin-inline: auto; }
+h1, h2 { font-family: var(--serif); line-height: 1.1; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.2rem, 5.5vw, 3.8rem); font-weight: 800; max-width: 16ch; }
+h2 { font-size: clamp(1.8rem, 3.5vw, 2.4rem); margin-bottom: 24px; }
+
+/* Portada */
+.portada { display: grid; gap: 32px; align-items: center; padding-top: 48px; }
+@media (min-width: 820px) { .portada { grid-template-columns: 1.4fr 1fr; } }
+.estado {
+  display: inline-flex; align-items: center; gap: 8px; margin: 0 0 16px;
+  font-weight: 700; font-size: .95rem; color: var(--suave);
+}
+.estado::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--linea); }
+.estado.abierto { color: var(--botella); }
+.estado.abierto::before { background: var(--botella); }
+.estado.cerrado::before { background: #a0522d; }
+.entradilla { font-size: 1.15rem; color: var(--suave); max-width: 46ch; margin: 18px 0 28px; }
+.acciones { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.boton {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 46px; padding: 10px 20px; border-radius: 999px;
+  border: 2px solid var(--botella); background: transparent; color: var(--botella);
+  font: 700 1rem var(--sans); text-decoration: none; cursor: pointer;
+}
+.boton:hover { background: color-mix(in srgb, var(--botella) 10%, transparent); }
+.boton.principal { background: var(--botella); color: var(--papel); }
+.boton.principal:hover { background: var(--botella-oscura); border-color: var(--botella-oscura); }
+
+/* El escanciado: la sidra cae de alto, es el gesto de la casa */
+.escanciado { margin: 0; justify-self: center; width: min(280px, 45vw); }
+.escanciado svg { width: 100%; height: auto; overflow: visible; }
+.botella-grande { fill: var(--botella); }
+.vaso { fill: none; stroke: var(--tinta); stroke-width: 3; stroke-linejoin: round; }
+.chorro {
+  fill: none; stroke: var(--manzana); stroke-width: 4; stroke-linecap: round;
+  stroke-dasharray: 260; stroke-dashoffset: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .chorro { animation: escanciar 1.6s ease-out .3s both; }
+  @keyframes escanciar { from { stroke-dashoffset: 260; } to { stroke-dashoffset: 0; } }
+}
+
+/* Carta */
+.carta { background: var(--papel); border-radius: 16px; }
+.pestanas { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.pestanas button {
+  border: 1px solid var(--linea); background: transparent; color: var(--tinta);
+  font: 500 1rem var(--sans); padding: 8px 16px; border-radius: 999px; cursor: pointer;
+}
+.pestanas button[aria-selected="true"] { background: var(--tinta); border-color: var(--tinta); color: var(--papel); }
+.platos { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+@media (min-width: 820px) { .platos { grid-template-columns: 1fr 1fr; column-gap: 48px; } }
+.platos li {
+  display: grid; grid-template-columns: 1fr auto; gap: 2px 16px;
+  padding: 14px 0; border-bottom: 1px dashed var(--linea);
+}
+.plato-nombre { font: 700 1.15rem var(--serif); }
+.plato-precio { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.plato-desc { grid-column: 1 / -1; color: var(--suave); font-size: .95rem; }
+.etiqueta { font-size: .78rem; font-weight: 700; color: var(--manzana); margin-left: 6px; white-space: nowrap; }
+.nota { color: var(--suave); font-size: .9rem; margin-top: 20px; }
+
+/* Horario */
+.horario table { border-collapse: collapse; width: 100%; max-width: 520px; font-variant-numeric: tabular-nums; }
+.horario th, .horario td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--linea); }
+.horario th { font-weight: 500; }
+.horario tr.hoy th, .horario tr.hoy td { font-weight: 700; color: var(--botella); }
+.horario tr.hoy th::after { content: " · hoy"; font-weight: 500; }
+.horario td.cerrado { color: var(--suave); }
+
+/* Reservas */
+.reservas form, .resumen { max-width: 640px; display: grid; gap: 16px; }
+.fila { display: grid; gap: 16px; }
+@media (min-width: 640px) { .fila { grid-template-columns: 1fr 1.4fr 1fr; } }
+.campo { display: grid; gap: 6px; min-width: 0; }
+label { font-weight: 700; }
+.opcional { font-weight: 400; color: var(--suave); }
+input, select, textarea {
+  font: inherit; color: inherit; width: 100%;
+  padding: 10px 12px; border: 1px solid #b9c1b2; border-radius: 10px; background: var(--papel);
+}
+input:focus, select:focus, textarea:focus { outline: 3px solid color-mix(in srgb, var(--manzana) 60%, transparent); border-color: var(--manzana); }
+[aria-invalid="true"] { border-color: #a0522d; }
+.error { color: #8a3b18; font-weight: 700; margin: 0; }
+.resumen { background: var(--papel); padding: 20px; border-radius: 16px; border: 1px solid var(--linea); }
+.resumen p { margin: 0; white-space: pre-line; }
+.reservas form[hidden], .resumen[hidden], .error[hidden] { display: none; }
+
+/* Dónde */
+address { font-style: normal; font-size: 1.1rem; margin-bottom: 12px; }
+
+.pie {
+  padding: 32px clamp(16px, 4vw, 48px);
+  background: var(--tinta); color: var(--piedra); font-size: .95rem;
+}
+.pie p { margin: 4px 0; max-width: 1100px; margin-inline: auto; }
+.pie a { color: #e9c56a; }

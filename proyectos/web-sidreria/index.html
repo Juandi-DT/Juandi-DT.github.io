@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sidrería La Tonada · Oviedo</title>
+<meta name="description" content="Sidra escanciada y cocina asturiana de casa en Oviedo. Carta, horario y reservas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700;800&family=Alegreya+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<p class="demo">Proyecto de demostración. La Tonada es un negocio ficticio: los precios, la dirección y el teléfono son inventados.</p>
+
+<header class="cabecera">
+  <a class="marca" href="#inicio" aria-label="Sidrería La Tonada, inicio">
+    <svg class="botella" viewBox="0 0 24 48" aria-hidden="true"><path d="M9 2h6v9c0 2 4 4 4 9v24a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V20c0-5 4-7 4-9z"/></svg>
+    La Tonada
+  </a>
+  <nav aria-label="Secciones">
+    <a href="#carta">Carta</a>
+    <a href="#horario">Horario</a>
+    <a href="#reservas">Reservas</a>
+    <a href="#donde">Cómo llegar</a>
+  </nav>
+</header>
+
+<main id="inicio">
+  <section class="portada">
+    <div class="portada-texto">
+      <p class="estado" id="estado" aria-live="polite">Comprobando horario…</p>
+      <h1>Sidra escanciada y cocina de casa en el centro de Oviedo</h1>
+      <p class="entradilla">Fabada los jueves, cachopo para dos y pixín del Cantábrico. Desde 1987 en la calle Gascona, la calle de las sidrerías.</p>
+      <div class="acciones">
+        <a class="boton principal" href="#reservas">Reservar mesa</a>
+        <a class="boton" href="#carta">Ver la carta</a>
+      </div>
+    </div>
+    <figure class="escanciado" aria-hidden="true">
+      <svg viewBox="0 0 200 260">
+        <path class="chorro" d="M58 36 C 60 110, 112 150, 128 236"/>
+        <path class="vaso" d="M108 206h44l-4 46h-36z"/>
+        <path class="botella-grande" d="M30 4h14v22c0 6 10 10 10 22v30a6 6 0 0 1-6 6H26a6 6 0 0 1-6-6V48c0-12 10-16 10-22z" transform="rotate(-38 37 44)"/>
+      </svg>
+    </figure>
+  </section>
+
+  <section id="carta" class="carta" aria-labelledby="titulo-carta">
+    <h2 id="titulo-carta">La carta</h2>
+    <div class="pestanas" role="tablist" aria-label="Secciones de la carta">
+      <button role="tab" id="tab-compartir" aria-controls="panel-carta" aria-selected="true" data-seccion="compartir">Para compartir</button>
+      <button role="tab" id="tab-platos" aria-controls="panel-carta" aria-selected="false" data-seccion="platos">Platos</button>
+      <button role="tab" id="tab-postres" aria-controls="panel-carta" aria-selected="false" data-seccion="postres">Postres</button>
+      <button role="tab" id="tab-bebida" aria-controls="panel-carta" aria-selected="false" data-seccion="bebida">Sidra y bebida</button>
+    </div>
+    <div id="panel-carta" role="tabpanel" aria-labelledby="tab-compartir" tabindex="0">
+      <ul class="platos" id="lista-platos"></ul>
+    </div>
+    <p class="nota">Pregunta por los platos sin gluten. IVA incluido.</p>
+  </section>
+
+  <section id="horario" class="horario" aria-labelledby="titulo-horario">
+    <h2 id="titulo-horario">Horario</h2>
+    <table>
+      <tbody id="tabla-horario"></tbody>
+    </table>
+  </section>
+
+  <section id="reservas" class="reservas" aria-labelledby="titulo-reservas">
+    <h2 id="titulo-reservas">Reservar mesa</h2>
+    <p>Rellena los datos y te abrimos WhatsApp con la reserva escrita. Te confirmamos en menos de una hora.</p>
+    <form id="form-reserva" novalidate>
+      <div class="campo">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" name="nombre" autocomplete="name" required>
+      </div>
+      <div class="fila">
+        <div class="campo">
+          <label for="personas">Personas</label>
+          <select id="personas" name="personas"></select>
+        </div>
+        <div class="campo">
+          <label for="fecha">Día</label>
+          <input id="fecha" name="fecha" type="date" required>
+        </div>
+        <div class="campo">
+          <label for="hora">Hora</label>
+          <select id="hora" name="hora" required disabled>
+            <option value="">Elige primero el día</option>
+          </select>
+        </div>
+      </div>
+      <div class="campo">
+        <label for="notas">Algo que debamos saber <span class="opcional">(opcional)</span></label>
+        <textarea id="notas" name="notas" rows="3" placeholder="Alergias, trona, celebración…"></textarea>
+      </div>
+      <p class="error" id="error-reserva" role="alert" hidden></p>
+      <button class="boton principal" type="submit">Preparar reserva</button>
+    </form>
+    <div class="resumen" id="resumen-reserva" hidden>
+      <p id="texto-resumen"></p>
+      <a class="boton principal" id="enlace-whatsapp" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+      <button class="boton" type="button" id="editar-reserva">Cambiar datos</button>
+    </div>
+  </section>
+
+  <section id="donde" class="donde" aria-labelledby="titulo-donde">
+    <h2 id="titulo-donde">Cómo llegar</h2>
+    <address>
+      Calle Gascona, 0 (dirección ficticia)<br>
+      33001 Oviedo, Asturias<br>
+      Teléfono: 600 000 000 (ficticio)
+    </address>
+    <p>A cinco minutos andando de la catedral. Parking público más cercano: plaza de la Escandalera.</p>
+    <a class="boton" href="https://www.google.com/maps/search/?api=1&amp;query=Calle+Gascona+Oviedo" target="_blank" rel="noopener">Abrir en Google Maps</a>
+  </section>
+</main>
+
+<footer class="pie">
+  <p>Sidrería La Tonada · Oviedo</p>
+  <p>Web de demostración hecha por <a href="../../index.html">Juan Diego Guio</a>. HTML, CSS y JavaScript sin librerías.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

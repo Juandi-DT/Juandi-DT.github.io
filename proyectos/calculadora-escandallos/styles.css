@@ -1,0 +1,125 @@
+/* Escandallo: una ficha técnica de cocina. Acero inoxidable, papel de comanda
+   y un único color de acción, el naranja de la llama del fogón. */
+:root {
+  --inox: #e7eaec;
+  --papel: #ffffff;
+  --tinta: #1f262b;
+  --suave: #5c6870;
+  --linea: #cfd5d9;
+  --llama: #c4501f;
+  --llama-osc: #9e3e15;
+  --bien: #2f6b45;
+  --mal: #a3361b;
+  --fuente: "Work Sans", "Segoe UI", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--inox); color: var(--tinta); font: 16px/1.5 var(--fuente); }
+:focus-visible { outline: 3px solid var(--llama); outline-offset: 2px; }
+.oculto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.barra {
+  display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: end;
+  padding: 24px clamp(16px, 4vw, 40px) 20px;
+  max-width: 1180px; margin: 0 auto;
+}
+h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; letter-spacing: -.02em; margin: 0; line-height: 1; }
+.barra p { margin: 6px 0 0; color: var(--suave); }
+.barra-acciones { display: flex; flex-wrap: wrap; gap: 8px; }
+h2 { font-size: 1.15rem; margin: 0; }
+
+.hoja {
+  max-width: 1180px; margin: 0 auto 32px; padding-inline: clamp(16px, 4vw, 40px);
+  display: grid; gap: 20px;
+}
+.hoja > section { background: var(--papel); border-radius: 6px; padding: 20px; border: 1px solid var(--linea); min-width: 0; }
+@media (min-width: 980px) {
+  .hoja { grid-template-columns: 1fr 340px; }
+  .hoja > section { grid-column: 1; }
+  .hoja > .resultado { grid-column: 2; grid-row: 1 / span 2; position: sticky; top: 16px; align-self: start; }
+  .hoja > .guardadas { grid-column: 1; }
+}
+
+.receta { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.receta .ancho { grid-column: 1 / -1; }
+.campo { display: grid; gap: 4px; min-width: 0; }
+label { font-weight: 600; font-size: .9rem; }
+input, select {
+  font: inherit; color: inherit; width: 100%; min-width: 0;
+  padding: 8px 10px; border: 1px solid var(--linea); border-radius: 4px; background: var(--papel);
+}
+input:focus, select:focus { border-color: var(--llama); outline: 2px solid color-mix(in srgb, var(--llama) 35%, transparent); }
+#nombre { font-size: 1.3rem; font-weight: 600; }
+.con-unidad { display: flex; align-items: center; gap: 6px; }
+.con-unidad span { color: var(--suave); white-space: nowrap; font-size: .9rem; }
+
+.btn {
+  font: 600 .95rem var(--fuente); min-height: 40px; padding: 8px 14px; border-radius: 4px; cursor: pointer;
+  border: 1px solid var(--tinta); background: var(--papel); color: var(--tinta);
+}
+.btn:hover { background: var(--inox); }
+.btn.principal { background: var(--llama); border-color: var(--llama); color: #fff; }
+.btn.principal:hover { background: var(--llama-osc); border-color: var(--llama-osc); }
+
+.cabecera-seccion { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+
+/* Tabla de ingredientes: tabla en escritorio, fichas apiladas en móvil */
+.tabla-envoltorio { overflow-x: auto; }
+.ingredientes { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.ingredientes th { text-align: left; font-size: .8rem; font-weight: 600; color: var(--suave); padding: 6px; border-bottom: 2px solid var(--tinta); }
+.ingredientes td { padding: 6px; border-bottom: 1px solid var(--linea); vertical-align: middle; }
+.ingredientes td:first-child { min-width: 150px; }
+.ingredientes .i-cantidad, .ingredientes .i-precio { width: 90px; }
+.ingredientes .i-merma { width: 64px; }
+.ingredientes .i-unidad { width: 72px; padding-right: 4px; }
+.num { text-align: right; white-space: nowrap; }
+.i-coste { font-weight: 600; }
+tr.incompatible .i-coste { color: var(--mal); font-weight: 500; font-size: .85rem; white-space: normal; }
+.quitar { border: 0; background: transparent; color: var(--suave); font-size: 1.4rem; line-height: 1; cursor: pointer; width: 36px; height: 36px; border-radius: 4px; }
+.quitar:hover { background: var(--inox); color: var(--mal); }
+.ayuda { color: var(--suave); font-size: .88rem; margin: 12px 0 0; max-width: 70ch; }
+
+@media (max-width: 720px) {
+  .ingredientes thead { display: none; }
+  .ingredientes, .ingredientes tbody { display: block; }
+  .ingredientes tr { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; padding: 12px 0; border-bottom: 1px solid var(--linea); position: relative; }
+  .ingredientes td { display: grid; gap: 2px; border: 0; padding: 0; }
+  .ingredientes td[data-titulo]::before { content: attr(data-titulo); font-size: .78rem; font-weight: 600; color: var(--suave); }
+  .ingredientes td:first-child { grid-column: 1 / -1; min-width: 0; padding-right: 40px; }
+  .ingredientes td:last-child { position: absolute; top: 8px; right: 0; }
+  .ingredientes .i-cantidad, .ingredientes .i-precio, .ingredientes .i-merma, .ingredientes .i-unidad { width: 100%; }
+  .num { text-align: left; }
+}
+
+/* Resultado */
+.cifras { margin: 14px 0 0; display: grid; gap: 14px; }
+.cifras div { display: grid; gap: 2px; }
+.cifras dt { font-size: .85rem; color: var(--suave); }
+.cifras dd { margin: 0; font-size: 1.35rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.cifras .clave dd { font-size: 2.1rem; font-weight: 700; letter-spacing: -.01em; }
+.detalle { margin: 0; font-size: .85rem; color: var(--suave); }
+.comprobar { margin-top: 20px; padding-top: 16px; border-top: 1px dashed var(--linea); display: grid; gap: 6px; }
+.veredicto { margin: 4px 0 0; font-size: .92rem; color: var(--suave); }
+.veredicto.bien { color: var(--bien); font-weight: 600; }
+.veredicto.mal { color: var(--mal); font-weight: 600; }
+
+/* Guardadas */
+.aviso-guardado { margin: 0 0 8px; min-height: 1.5em; color: var(--bien); font-weight: 600; }
+.lista-recetas { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.lista-recetas li { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 0; border-bottom: 1px solid var(--linea); }
+.lista-recetas .titulo-receta { flex: 1 1 200px; min-width: 0; font-weight: 600; }
+.lista-recetas .titulo-receta small { display: block; font-weight: 400; color: var(--suave); }
+.lista-recetas .vacio { color: var(--suave); }
+.lista-recetas button { font: 500 .88rem var(--fuente); background: none; border: 0; color: var(--llama-osc); cursor: pointer; padding: 6px 4px; text-decoration: underline; text-underline-offset: 3px; }
+.lista-recetas button.confirmar { color: var(--mal); font-weight: 700; }
+
+.pie { max-width: 1180px; margin: 0 auto; padding: 8px clamp(16px, 4vw, 40px) 32px; color: var(--suave); font-size: .88rem; }
+.pie a { color: var(--tinta); }
+
+/* Ficha impresa: solo la receta y el resultado */
+@media print {
+  body { background: #fff; }
+  .barra-acciones, .guardadas, .pie, #anadir, .quitar, .comprobar, .ayuda { display: none !important; }
+  .hoja { display: block; }
+  .hoja > section { border: 0; padding: 0 0 16px; }
+  input, select { border: 0; padding: 0; }
+}
