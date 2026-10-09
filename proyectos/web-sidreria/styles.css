@@ -16,6 +16,10 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Las ilustraciones de la carta: el <svg> con los dibujos no se ve,
+   solo sirve para que cada plato pueda apuntar al suyo con <use>. */
+.ilustraciones { position: absolute; width: 0; height: 0; overflow: hidden; }
 body {
   margin: 0;
   background: var(--piedra);
@@ -106,12 +110,28 @@ h2 { font-size: clamp(1.8rem, 3.5vw, 2.4rem); margin-bottom: 24px; }
 .platos { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
 @media (min-width: 820px) { .platos { grid-template-columns: 1fr 1fr; column-gap: 48px; } }
 .platos li {
-  display: grid; grid-template-columns: 1fr auto; gap: 2px 16px;
+  display: grid; grid-template-columns: 64px 1fr auto; gap: 2px 14px; align-items: start;
   padding: 14px 0; border-bottom: 1px dashed var(--linea);
 }
-.plato-nombre { font: 700 1.15rem var(--serif); }
-.plato-precio { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.plato-desc { grid-column: 1 / -1; color: var(--suave); font-size: .95rem; }
+.plato-nombre { font: 700 1.15rem var(--serif); align-self: center; }
+.plato-precio { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; align-self: center; }
+.plato-desc { grid-column: 2 / -1; color: var(--suave); font-size: .95rem; }
+
+/* Ilustración de cada plato: se acerca al pasar el ratón y se abre al pulsar */
+.plato-img {
+  grid-row: 1 / span 2; align-self: center;
+  width: 64px; height: 64px; padding: 0; overflow: hidden;
+  border: 1px solid var(--linea); border-radius: 14px; background: var(--papel);
+  cursor: zoom-in;
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+.plato-img svg { display: block; width: 100%; height: 100%; transition: transform .35s ease; }
+.plato-img:hover, .plato-img:focus-visible {
+  transform: translateY(-3px); border-color: var(--manzana);
+  box-shadow: 0 10px 20px -10px rgba(31, 42, 29, .55);
+}
+.plato-img:hover svg, .plato-img:focus-visible svg { transform: scale(1.14); }
+.plato-img:active { transform: translateY(-1px) scale(.97); }
 .etiqueta { font-size: .78rem; font-weight: 700; color: var(--manzana); margin-left: 6px; white-space: nowrap; }
 .nota { color: var(--suave); font-size: .9rem; margin-top: 20px; }
 
@@ -150,3 +170,47 @@ address { font-style: normal; font-size: 1.1rem; margin-bottom: 12px; }
 }
 .pie p { margin: 4px 0; max-width: 1100px; margin-inline: auto; }
 .pie a { color: #e9c56a; }
+
+/* Visor del plato (<dialog> nativo) */
+.visor {
+  width: min(680px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 0; border: 0; border-radius: 18px;
+  background: var(--papel); color: var(--tinta);
+  box-shadow: 0 30px 70px -30px rgba(31, 42, 29, .8);
+  overflow: auto;
+}
+.visor::backdrop { background: rgba(26, 36, 24, .62); }
+.visor[open] { display: grid; grid-template-columns: 1fr; }
+@media (min-width: 620px) { .visor[open] { grid-template-columns: 240px 1fr; } }
+.visor-dibujo {
+  display: grid; place-items: center; padding: 24px;
+  background: var(--piedra); border-bottom: 1px solid var(--linea);
+}
+@media (min-width: 620px) { .visor-dibujo { border-bottom: 0; border-right: 1px solid var(--linea); } }
+.visor-dibujo svg { width: min(200px, 50vw); height: auto; }
+.visor-texto { padding: 24px clamp(20px, 4vw, 32px) 28px; }
+.visor-seccion { margin: 0 0 6px; font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--botella); }
+.visor-texto h3 { font: 800 clamp(1.5rem, 4vw, 2rem)/1.1 var(--serif); margin: 0; }
+.visor-desc { color: var(--suave); margin: 10px 0 0; }
+.visor-precio { font-size: 1.5rem; font-weight: 700; font-variant-numeric: tabular-nums; margin: 14px 0 0; }
+.visor-nota { font-size: .82rem; color: var(--suave); margin: 4px 0 18px; }
+.visor-cerrar {
+  position: absolute; top: 10px; right: 12px; z-index: 2;
+  width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--linea);
+  background: var(--papel); color: var(--tinta); font-size: 1.6rem; line-height: 1; cursor: pointer;
+}
+.visor-cerrar:hover { background: var(--piedra); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .visor[open] { animation: abrir-visor .3s cubic-bezier(.2, .8, .3, 1); }
+  .visor[open]::backdrop { animation: fundir .3s ease; }
+  @keyframes abrir-visor { from { opacity: 0; transform: translateY(14px) scale(.97); } }
+  @keyframes fundir { from { opacity: 0; } }
+  .platos li { animation: subir-plato .45s ease both; }
+  .platos li:nth-child(2) { animation-delay: .05s; }
+  .platos li:nth-child(3) { animation-delay: .1s; }
+  .platos li:nth-child(4) { animation-delay: .15s; }
+  .platos li:nth-child(5) { animation-delay: .2s; }
+  @keyframes subir-plato { from { opacity: 0; transform: translateY(10px); } }
+}

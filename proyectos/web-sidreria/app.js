@@ -18,31 +18,41 @@ const NEGOCIO = {
   maxPersonas: 12,
 };
 
+// "img" es el identificador del dibujo dentro del <svg class="ilustraciones">
+// que hay al principio de index.html. Con fotos de un cliente real, aquí iría
+// la ruta del archivo y pintarCarta() usaría <img> en lugar de <use>.
 const CARTA = {
   compartir: [
-    { nombre: "Tabla de quesos asturianos", desc: "Cabrales, Afuega'l Pitu, Gamonéu y Casín con membrillo casero.", precio: 16.5 },
-    { nombre: "Chorizo a la sidra", desc: "Chorizo de Tineo guisado lentamente en sidra natural.", precio: 9 },
-    { nombre: "Tortos con picadillo", desc: "Tortas de maíz fritas con picadillo de la casa y huevo.", precio: 12 },
-    { nombre: "Croquetas de jamón", desc: "Ocho unidades, bechamel con leche de la cooperativa.", precio: 10 },
+    { nombre: "Tabla de quesos asturianos", desc: "Cabrales, Afuega'l Pitu, Gamonéu y Casín con membrillo casero.", precio: 16.5, img: "p-queso" },
+    { nombre: "Chorizo a la sidra", desc: "Chorizo de Tineo guisado lentamente en sidra natural.", precio: 9, img: "p-chorizo" },
+    { nombre: "Tortos con picadillo", desc: "Tortas de maíz fritas con picadillo de la casa y huevo.", precio: 12, img: "p-tortos" },
+    { nombre: "Croquetas de jamón", desc: "Ocho unidades, bechamel con leche de la cooperativa.", precio: 10, img: "p-croquetas" },
   ],
   platos: [
-    { nombre: "Fabada asturiana", desc: "Con su compango completo. Solo los jueves.", precio: 14.5, etiqueta: "Jueves" },
-    { nombre: "Cachopo de ternera", desc: "Ternera asturiana, jamón y queso de la tierra. Para dos personas.", precio: 26 },
-    { nombre: "Pixín a la plancha", desc: "Rape del Cantábrico con ajada y patatas panaderas.", precio: 22 },
-    { nombre: "Merluza a la sidra", desc: "Merluza del pincho en salsa de sidra y almejas.", precio: 19.5 },
-    { nombre: "Escalopines al Cabrales", desc: "Solomillo de ternera en salsa de queso Cabrales.", precio: 18 },
+    { nombre: "Fabada asturiana", desc: "Con su compango completo. Solo los jueves.", precio: 14.5, etiqueta: "Jueves", img: "p-fabada" },
+    { nombre: "Cachopo de ternera", desc: "Ternera asturiana, jamón y queso de la tierra. Para dos personas.", precio: 26, img: "p-cachopo" },
+    { nombre: "Pixín a la plancha", desc: "Rape del Cantábrico con ajada y patatas panaderas.", precio: 22, img: "p-pixin" },
+    { nombre: "Merluza a la sidra", desc: "Merluza del pincho en salsa de sidra y almejas.", precio: 19.5, img: "p-merluza" },
+    { nombre: "Escalopines al Cabrales", desc: "Solomillo de ternera en salsa de queso Cabrales.", precio: 18, img: "p-escalopines" },
   ],
   postres: [
-    { nombre: "Arroz con leche requemado", desc: "Hecho a fuego lento, con la costra de azúcar quemada al momento.", precio: 5.5 },
-    { nombre: "Frixuelos", desc: "Crepes asturianas con crema y chocolate.", precio: 5 },
-    { nombre: "Tarta de queso Casín", desc: "Al horno, cremosa por dentro.", precio: 6 },
+    { nombre: "Arroz con leche requemado", desc: "Hecho a fuego lento, con la costra de azúcar quemada al momento.", precio: 5.5, img: "p-arroz" },
+    { nombre: "Frixuelos", desc: "Crepes asturianas con crema y chocolate.", precio: 5, img: "p-frixuelos" },
+    { nombre: "Tarta de queso Casín", desc: "Al horno, cremosa por dentro.", precio: 6, img: "p-tarta" },
   ],
   bebida: [
-    { nombre: "Sidra natural", desc: "Botella de 70 cl, escanciada en mesa.", precio: 4.5 },
-    { nombre: "Sidra de nueva expresión", desc: "Botella de 75 cl, para tomar en copa.", precio: 9 },
-    { nombre: "Vino de la casa", desc: "Copa de tinto o blanco.", precio: 2.8 },
-    { nombre: "Agua mineral", desc: "50 cl.", precio: 2 },
+    { nombre: "Sidra natural", desc: "Botella de 70 cl, escanciada en mesa.", precio: 4.5, img: "p-sidra" },
+    { nombre: "Sidra de nueva expresión", desc: "Botella de 75 cl, para tomar en copa.", precio: 9, img: "p-sidra-copa" },
+    { nombre: "Vino de la casa", desc: "Copa de tinto o blanco.", precio: 2.8, img: "p-vino" },
+    { nombre: "Agua mineral", desc: "50 cl.", precio: 2, img: "p-agua" },
   ],
+};
+
+const NOMBRE_SECCION = {
+  compartir: "Para compartir",
+  platos: "Platos",
+  postres: "Postres",
+  bebida: "Sidra y bebida",
 };
 
 const DIAS = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
@@ -104,9 +114,15 @@ function pintarHorario() {
 }
 
 /* ---------- Carta con pestañas accesibles ---------- */
+let seccionActual = "compartir";
+
 function pintarCarta(seccion) {
-  $("lista-platos").innerHTML = CARTA[seccion].map((p) => `
+  seccionActual = seccion;
+  $("lista-platos").innerHTML = CARTA[seccion].map((p, i) => `
     <li>
+      <button class="plato-img" type="button" data-indice="${i}" aria-label="Ver «${p.nombre}» en grande">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><use href="#${p.img}"/></svg>
+      </button>
       <span class="plato-nombre">${p.nombre}${p.etiqueta ? `<span class="etiqueta">${p.etiqueta}</span>` : ""}</span>
       <span class="plato-precio">${precio(p.precio)}</span>
       <span class="plato-desc">${p.desc}</span>
@@ -131,6 +147,31 @@ function prepararPestanas() {
     });
   });
   pintarCarta("compartir");
+}
+
+/* ---------- Visor del plato ----------
+   Un <dialog> nativo: el navegador ya se encarga de atrapar el foco dentro,
+   de cerrarlo con Esc y de devolver el foco al botón que lo abrió. */
+function prepararVisor() {
+  const visor = $("visor");
+
+  $("lista-platos").addEventListener("click", (e) => {
+    const boton = e.target.closest(".plato-img");
+    if (!boton) return;
+    const plato = CARTA[seccionActual][Number(boton.dataset.indice)];
+    $("visor-use").setAttribute("href", `#${plato.img}`);
+    $("visor-seccion").textContent = NOMBRE_SECCION[seccionActual];
+    $("visor-titulo").textContent = plato.nombre;
+    $("visor-desc").textContent = plato.desc;
+    $("visor-precio").textContent = precio(plato.precio) + (plato.etiqueta ? ` · ${plato.etiqueta}` : "");
+    visor.showModal();
+  });
+
+  $("visor-cerrar").addEventListener("click", () => visor.close());
+  $("visor-reservar").addEventListener("click", () => visor.close());
+  // Clic fuera de la tarjeta: el <dialog> ocupa toda la pantalla, así que
+  // el fondo es el propio elemento.
+  visor.addEventListener("click", (e) => { if (e.target === visor) visor.close(); });
 }
 
 /* ---------- Reservas ---------- */
@@ -221,5 +262,6 @@ function prepararReservas() {
 pintarEstado();
 pintarHorario();
 prepararPestanas();
+prepararVisor();
 prepararReservas();
 setInterval(pintarEstado, 60_000);
