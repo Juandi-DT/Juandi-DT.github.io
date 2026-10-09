@@ -22,10 +22,17 @@ Mi portafolio y escaparate de servicios freelance. Publicado en
 index.html, styles.css, main.js   ← la página principal del portafolio
                                     (en main.js está el bloque CONFIG: nombre,
                                      correo, WhatsApp, usuario de GitHub)
+textos.js                         ← todos los textos de la página principal,
+                                    en español y en inglés. El HTML no lleva
+                                    texto suelto: cada elemento tiene
+                                    data-t="clave" y main.js lo rellena
+favicon.svg
 proyectos/
-  web-sidreria/                   ← web de una sidrería ficticia:
-                                    carta por pestañas, horario con "abierto
-                                    ahora" y reservas por WhatsApp
+  web-sidreria/                   ← web de una sidrería ficticia: carta
+                                    ilustrada por pestañas, horario con
+                                    "abierto ahora" y reservas por WhatsApp.
+                                    Los dibujos de los platos son símbolos SVG
+                                    dentro de su index.html
   calculadora-escandallos/        ← coste por ración con mermas y precio de
                                     venta recomendado; guarda en localStorage
                                     y exporta CSV
@@ -59,6 +66,17 @@ servicios/                        ← textos para Fiverr, Malt, Workana, Upwork.
 - Accesibilidad: foco visible, contraste suficiente, navegable con teclado,
   `aria-live` donde el contenido cambia solo. Ya está así; mantenlo.
 - Comentarios y nombres de variables **en español**, como el resto del código.
+- Las animaciones van suaves y cortas, y **todas** se desactivan dentro de
+  `@media (prefers-reduced-motion: reduce)`. Nada que parpadee ni se mueva
+  solo de forma continua.
+- Las ilustraciones son SVG propios. **No se descargan fotos de internet**:
+  o son del cliente, o son dibujos nuestros.
+
+### Herramientas instaladas en este equipo
+
+- Git 2.55 y Python 3.13, instalados con `winget` en esta sesión.
+- No hay Node. Para probar las páginas en el navegador no hace falta: vale
+  `python -m http.server 8123` desde la raíz del repositorio.
 
 ### Honestidad
 
@@ -128,10 +146,10 @@ allá de lo que ya hay en la web).
 Ver el estado real en el historial de git y en `servicios/`. El plan acordado,
 en este orden:
 
-- **A.** Versión en inglés del portafolio, con selector ES/EN en la página
-  principal, sin duplicar el código.
+- **A.** ~~Versión en inglés del portafolio, con selector ES/EN.~~ Hecho.
 - **B.** Sección de soporte informático, con 2 o 3 casos **reales** míos
-  (hay que preguntármelos).
+  (hay que preguntármelos). La clave `nav.soporte` ya está en `textos.js`
+  esperando a que exista la sección.
 - **C.** Textos de servicios para Fiverr, Malt, Workana y Upwork, en español e
   inglés, con precios investigados y la fuente de cada cifra.
 - **D.** Cuando yo tenga las cuentas creadas, rellenar los perfiles con el
