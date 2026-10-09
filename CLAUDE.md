@@ -179,10 +179,10 @@ Ver el estado real en el historial de git y en `servicios/`. El plan acordado,
 en este orden:
 
 - **A.** ~~Versión en inglés del portafolio, con selector ES/EN.~~ Hecho.
-- **B.** Sección de soporte informático, con casos concretos escritos como
-  escenarios técnicos (síntoma, causa, solución). Si Juan Diego tiene casos
-  suyos de verdad, esos van primero. La clave `nav.soporte` ya está en
-  `textos.js` esperando a que exista la sección.
+- **B.** ~~Sección de soporte informático.~~ Hecha, con cuatro averías
+  escritas como escenarios técnicos (síntoma, causa, solución): disco
+  mecánico, impresora de comandas, correo en spam y copias de seguridad.
+  Si Juan Diego cuenta casos suyos de verdad, sustituyen a estos.
 - **C.** Textos de servicios para Fiverr, Malt, Workana y Upwork, en español e
   inglés, con precios investigados y la fuente de cada cifra.
 - **D.** Cuando yo tenga las cuentas creadas, rellenar los perfiles con el

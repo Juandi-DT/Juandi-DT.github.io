@@ -80,7 +80,9 @@ a { color: var(--accion); }
   .idiomas { grid-area: 1 / 3; }
 }
 .firma:hover { color: var(--accion); }
-.cabecera nav { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+/* Cuatro secciones tienen que caber en una sola línea en un móvil estrecho */
+.cabecera nav { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .95rem; }
+@media (min-width: 720px) { .cabecera nav { gap: 6px 20px; font-size: 1rem; } }
 .cabecera nav a { position: relative; color: var(--tinta); text-decoration: none; font-weight: 600; padding-block: 2px; }
 .cabecera nav a::after {
   content: ""; position: absolute; left: 0; bottom: -2px; height: 2px; width: 100%;
@@ -106,6 +108,10 @@ h1 { font-size: clamp(2.2rem, 5.4vw, 4rem); font-weight: 800; font-stretch: 118%
 h2 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); font-weight: 800; font-stretch: 115%; margin-bottom: 28px; }
 h3 { font-size: 1.3rem; font-weight: 700; font-stretch: 108%; }
 
+/* Mientras esperan su turno, los proyectos están desplazados a un lado. Sin
+   esto asomarían por el borde y saldría una barra de scroll horizontal.
+   Se usa "clip" y no "hidden" para no crear un contenedor de scroll. */
+main { overflow-x: clip; }
 main > section { padding-block: 64px; }
 
 /* Secciones que aparecen al llegar a ellas (main.js añade .visible) */
@@ -165,6 +171,9 @@ main > section { padding-block: 64px; }
 
 /* Portada */
 .portada { display: grid; gap: 48px; align-items: center; padding-top: 32px; }
+/* Sin esto, el ancho fijo de la comanda ensancha la columna del grid y la
+   portada se sale unos píxeles por la derecha en pantallas estrechas. */
+.portada > * { min-width: 0; }
 @media (min-width: 900px) { .portada { grid-template-columns: 1.35fr 1fr; } }
 .entradilla { font-size: 1.2rem; color: var(--suave); max-width: 54ch; margin: 24px 0 32px; }
 .acciones, .enlaces { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -296,6 +305,38 @@ main > section { padding-block: 64px; }
 .m-barra b { position: relative; color: #fff; padding-left: 8px; line-height: 26px; font-size: .82rem; }
 .m-sube { color: #a4461f; font-weight: 700; font-size: .85rem; }
 
+/* Soporte: cada avería es una ficha de taller, con su síntoma de titular y
+   debajo la causa, lo que hago y cómo queda. */
+.rejilla-casos { display: grid; gap: 20px; }
+@media (min-width: 820px) { .rejilla-casos { grid-template-columns: 1fr 1fr; gap: 24px; } }
+.caso {
+  background: var(--superficie); border: 1px solid var(--linea); border-radius: 14px;
+  padding: clamp(20px, 2.6vw, 28px); box-shadow: var(--sombra);
+  border-left: 4px solid var(--accion);
+  transition: transform .35s var(--curva), box-shadow .35s var(--curva);
+}
+.caso:hover { transform: translateY(-3px); box-shadow: var(--sombra-alta); }
+.caso h3 { font-size: 1.22rem; margin-bottom: 16px; text-wrap: balance; }
+.caso dl { margin: 0; display: grid; gap: 14px; }
+.caso dt {
+  font-size: .74rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--suave); margin-bottom: 3px;
+}
+.caso dd { margin: 0; color: var(--tinta); font-size: .97rem; }
+.caso .resultado dd { font-weight: 600; }
+.caso .resultado dt { color: var(--accion); }
+.nota-soporte { color: var(--suave); font-size: .95rem; max-width: 62ch; margin: 28px 0 0; }
+
+/* Las fichas entran de dos en dos, como se leen */
+.soporte.revelar .caso { opacity: 0; transform: translateY(18px); }
+.soporte.revelar.visible .caso {
+  opacity: 1; transform: none;
+  transition: opacity .5s var(--curva), transform .5s var(--curva);
+}
+.soporte.revelar.visible .caso:nth-child(2) { transition-delay: .1s; }
+.soporte.revelar.visible .caso:nth-child(3) { transition-delay: .2s; }
+.soporte.revelar.visible .caso:nth-child(4) { transition-delay: .3s; }
+
 /* Proceso: es una secuencia real, por eso va numerado */
 .pasos { list-style: none; counter-reset: paso; margin: 0; padding: 0; display: grid; gap: 28px; }
 @media (min-width: 860px) { .pasos { grid-template-columns: repeat(4, 1fr); } }
@@ -368,5 +409,6 @@ main > section { padding-block: 64px; }
   .proyecto--sidreria.revelar .muestra > span,
   .proyecto--escandallos.revelar .m-fila,
   .proyecto--escandallos.revelar .m-aviso,
-  .proyecto--gastos.revelar .m-sube { opacity: 1; transform: none; }
+  .proyecto--gastos.revelar .m-sube,
+  .soporte.revelar .caso { opacity: 1; transform: none; }
 }

@@ -92,6 +92,34 @@ const TEXTOS = {
     "mg.pescado": "Pescado",
     "mg.sube": "Lechuga +12,2 %",
 
+    "soporte.h2": "Soporte informático",
+    "soporte.intro": "Las cuatro averías que más aparecen en un bar, una tienda o un despacho pequeño. Si la tuya no está aquí, cuéntamela: casi todo lo que para un negocio tiene arreglo y no cuesta tanto como parece.",
+    "soporte.causa": "Por qué pasa",
+    "soporte.hago": "Qué hago",
+    "soporte.queda": "Cómo queda",
+
+    "c1.h3": "El ordenador tarda tres minutos en arrancar",
+    "c1.causa": "Casi siempre es el disco duro mecánico, que en un equipo de seis o siete años ya no da más de sí. Windows, el antivirus y los programas que se abren solos se pelean por leer del mismo disco mientras tú esperas delante.",
+    "c1.hago": "Clono el disco tal como está a un SSD: no se reinstala nada, los programas y las licencias siguen donde estaban y no pierdes un archivo. De paso quito del arranque lo que no hace falta.",
+    "c1.queda": "De tres minutos a quince segundos. Un equipo que ibas a tirar aguanta tres o cuatro años más por lo que cuesta un disco SSD y un rato de trabajo.",
+
+    "c2.h3": "La impresora de comandas deja de imprimir cada dos por tres",
+    "c2.causa": "La impresora coge una dirección de red distinta cada vez que se reinicia el router, y el ordenador la sigue buscando donde estaba. Es la avería más habitual en hostelería, y siempre aparece en mitad de un servicio.",
+    "c2.hago": "Fijo la dirección de la impresora en el router para que sea siempre la misma, reinstalo el controlador que toca y dejo la cola de impresión limpia.",
+    "c2.queda": "Deja de depender de la suerte. Y te dejo escrito en un folio, en la pared, los dos pasos que hay que mirar antes de llamar a nadie.",
+
+    "c3.h3": "Los correos a los clientes acaban en spam",
+    "c3.causa": "Si escribes desde el correo de tu dominio y ese dominio no tiene configurados los registros SPF y DKIM, Gmail no puede comprobar que el correo sale de donde dice. Ante la duda, lo manda a la carpeta de spam.",
+    "c3.hago": "Configuro esos registros en el dominio y compruebo con una herramienta de verificación que los correos salen firmados y que llegan a la bandeja de entrada.",
+    "c3.queda": "Los presupuestos y las facturas llegan donde tienen que llegar. Tarda unas horas en hacerse efectivo en todo internet, así que se mira al día siguiente.",
+
+    "c4.h3": "Se ha estropeado el disco con las facturas",
+    "c4.causa": "Los discos se estropean, los portátiles se caen y el ransomware cifra lo que encuentra. Cuando llega ese día, la pregunta no es qué ha fallado, es dónde está la otra copia. Lo normal es que no haya ninguna, o que la haya y nadie la haya probado nunca.",
+    "c4.hago": "Dejo montada una copia automática en dos sitios, un disco externo y la nube, y la pruebo delante de ti: restauramos un archivo para ver que de verdad se puede.",
+    "c4.queda": "Una avería pasa de cerrar el negocio una semana a costarte una tarde. Se puede hacer antes del susto, que sale mucho más barato que después.",
+
+    "soporte.nota": "Estos son los problemas y cómo se resuelven, no una lista de clientes: estoy empezando y lo digo claro. Trabajo en Oviedo en persona y en remoto para el resto.",
+
     "proceso.h2": "Cómo trabajo",
     "paso1.h3": "Me cuentas qué necesitas",
     "paso1.p": "Por WhatsApp, correo o en persona si estás en Oviedo. Sin tecnicismos.",
@@ -203,6 +231,34 @@ const TEXTOS = {
     "mg.bebida": "Drinks",
     "mg.pescado": "Fish",
     "mg.sube": "Lettuce +12.2 %",
+
+    "soporte.h2": "IT support",
+    "soporte.intro": "The four faults that turn up most often in a small bar, shop or office. If yours is not here, tell me about it: almost anything that stops a small business has a fix, and it usually costs less than people expect.",
+    "soporte.causa": "Why it happens",
+    "soporte.hago": "What I do",
+    "soporte.queda": "The result",
+
+    "c1.h3": "The computer takes three minutes to start up",
+    "c1.causa": "Nearly always the old mechanical hard drive, which on a six or seven year old machine has nothing left to give. Windows, the antivirus and everything that opens on its own are all fighting to read from the same disk while you sit there waiting.",
+    "c1.hago": "I clone the disk exactly as it is onto an SSD: nothing is reinstalled, your programs and licences stay where they were and you lose no files. While I am at it I take out of the startup whatever does not need to be there.",
+    "c1.queda": "Three minutes becomes fifteen seconds. A machine you were about to throw away lasts another three or four years, for the price of an SSD and a bit of work.",
+
+    "c2.h3": "The kitchen printer stops printing every other day",
+    "c2.causa": "The printer picks up a different network address every time the router restarts, and the computer carries on looking for it where it used to be. It is the most common fault in hospitality, and it always shows up in the middle of service.",
+    "c2.hago": "I pin the printer's address on the router so it is always the same one, reinstall the right driver and clear out the print queue.",
+    "c2.queda": "It stops being a matter of luck. And I leave the two things to check, written on a sheet on the wall, before anyone has to call anybody.",
+
+    "c3.h3": "Emails to customers end up in spam",
+    "c3.causa": "If you send from your own domain and that domain has no SPF and DKIM records set up, Gmail cannot verify that the message really comes from where it says. Given the doubt, it files it as spam.",
+    "c3.hago": "I set up those records on the domain and check with a verification tool that your mail goes out signed and lands in the inbox.",
+    "c3.queda": "Your quotes and invoices arrive where they should. It takes a few hours to take effect across the internet, so we check again the next day.",
+
+    "c4.h3": "The drive with all the invoices has died",
+    "c4.causa": "Drives fail, laptops get dropped and ransomware encrypts whatever it finds. When that day comes the question is not what broke, it is where the other copy is. Usually there isn't one, or there is and nobody has ever tested it.",
+    "c4.hago": "I set up an automatic backup in two places, an external drive and the cloud, and I test it in front of you: we restore a file to prove it actually works.",
+    "c4.queda": "A breakdown goes from closing you for a week to costing you an afternoon. It can be done before the scare, which is far cheaper than after it.",
+
+    "soporte.nota": "These are the problems and how they get solved, not a client list: I am starting out and I would rather say so. In person in Oviedo, remotely everywhere else.",
 
     "proceso.h2": "How I work",
     "paso1.h3": "You tell me what you need",
