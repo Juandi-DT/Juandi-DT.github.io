@@ -17,6 +17,11 @@ from xml.sax.saxutils import escape
 
 CARPETA = Path(__file__).parent / "entrada"
 
+# Un .xlsx es un .zip, y un .zip guarda la fecha de cada archivo que mete.
+# Con una fecha fija, volver a generar los ejemplos produce archivos idénticos
+# byte a byte y no aparecen como cambios en el control de versiones.
+FECHA_ZIP = (2026, 1, 1, 0, 0, 0)
+
 # (proveedor, [(producto, categoría, unidad, precio_min, precio_max, cantidad_min, cantidad_max)])
 PROVEEDORES = {
     "Cárnicas del Nalón": [
@@ -129,7 +134,9 @@ def escribir_xlsx(ruta: Path, filas: list[list]) -> None:
     }
     with zipfile.ZipFile(ruta, "w", zipfile.ZIP_DEFLATED) as z:
         for nombre, contenido in archivos.items():
-            z.writestr(nombre, contenido)
+            entrada = zipfile.ZipInfo(nombre, date_time=FECHA_ZIP)
+            entrada.compress_type = zipfile.ZIP_DEFLATED
+            z.writestr(entrada, contenido)
 
 
 def generar_mes(anio: int, mes: int, rng: random.Random) -> dict[str, list[list]]:

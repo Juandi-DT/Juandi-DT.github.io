@@ -73,7 +73,6 @@ input:focus, select:focus { border-color: var(--llama); outline: 2px solid color
 .ingredientes .i-unidad { width: 72px; padding-right: 4px; }
 .num { text-align: right; white-space: nowrap; }
 .i-coste { font-weight: 600; }
-tr.incompatible .i-coste { color: var(--mal); font-weight: 500; font-size: .85rem; white-space: normal; }
 .quitar { border: 0; background: transparent; color: var(--suave); font-size: 1.4rem; line-height: 1; cursor: pointer; width: 36px; height: 36px; border-radius: 4px; }
 .quitar:hover { background: var(--inox); color: var(--mal); }
 .ayuda { color: var(--suave); font-size: .88rem; margin: 12px 0 0; max-width: 70ch; }
@@ -115,11 +114,40 @@ tr.incompatible .i-coste { color: var(--mal); font-weight: 500; font-size: .85re
 .pie { max-width: 1180px; margin: 0 auto; padding: 8px clamp(16px, 4vw, 40px) 32px; color: var(--suave); font-size: .88rem; }
 .pie a { color: var(--tinta); }
 
-/* Ficha impresa: solo la receta y el resultado */
+/* Ficha impresa: solo la receta y el resultado, y los campos como texto.
+   En papel no hay nada que editar, así que no se imprime ningún control:
+   ni recuadros, ni las flechas de subir y bajar de los campos numéricos,
+   ni la flecha del desplegable de unidades. */
 @media print {
-  body { background: #fff; }
-  .barra-acciones, .guardadas, .pie, #anadir, .quitar, .comprobar, .ayuda { display: none !important; }
-  .hoja { display: block; }
-  .hoja > section { border: 0; padding: 0 0 16px; }
-  input, select { border: 0; padding: 0; }
+  body { background: #fff; color: #000; }
+  .barra-acciones, .guardadas, .pie, #anadir, .quitar, .comprobar, .ayuda,
+  .cabecera-seccion .btn { display: none !important; }
+  .hoja { display: block; max-width: none; padding-inline: 0; }
+  .hoja > section { border: 0; padding: 0 0 16px; background: transparent; }
+  .tabla-envoltorio { overflow: visible; }
+
+  input, select {
+    appearance: none; -webkit-appearance: none; -moz-appearance: textfield;
+    border: 0; padding: 0; background: transparent; color: inherit;
+    text-overflow: clip;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  select::-ms-expand { display: none; }
+
+  /* En papel el campo ocupa lo que ocupa su contenido, no el ancho que
+     necesitaba para poder escribir: así la unidad queda pegada a la cifra y
+     los nombres largos de ingrediente caben enteros. */
+  .con-unidad { gap: 3px; }
+  .receta .con-unidad input { width: 3.5em; }
+  /* Las cifras con unidad detrás van pegadas a ella */
+  .con-unidad input[type="number"], .ingredientes input[type="number"] { text-align: right; }
+  .ingredientes .i-cantidad, .ingredientes .i-precio { width: 60px; }
+  .ingredientes .i-merma { width: 36px; }
+  .ingredientes .i-unidad { width: 44px; }
+  .ingredientes td:first-child { width: 36%; min-width: 0; }
+
+  .ingredientes th, .ingredientes td { padding: 4px 6px; }
+  .resultado, .ingredientes tr { break-inside: avoid; }
+  .cifras .clave dd { font-size: 1.6rem; }
 }
