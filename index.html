@@ -100,7 +100,7 @@
     <p class="intro" data-t="proyectos.intro">Proyectos de demostración, pensados para problemas reales de la hostelería, que es el sector que conozco desde dentro. Puedes probarlos y ver el código.</p>
     <p class="intro aviso-idioma" data-t="proyectos.idioma" hidden></p>
 
-    <article class="proyecto">
+    <article class="proyecto proyecto--sidreria revelar">
       <div class="proyecto-texto">
         <h3 data-t="p1.h3">Web para una sidrería</h3>
         <p data-t="p1.p">Carta por secciones con los platos ilustrados, horario y un indicador de abierto o cerrado que usa la hora de Oviedo. Las reservas solo ofrecen horas en las que el local abre y llegan por WhatsApp ya escritas.</p>
@@ -113,13 +113,13 @@
       <div class="muestra muestra-sidreria" aria-hidden="true">
         <span class="m-estado" data-t="ms.estado">Abierto ahora · cierra a las 23:30</span>
         <span class="m-titulo" data-t="ms.titulo">Sidra escanciada y cocina de casa</span>
-        <span class="m-linea"><b data-t="ms.l1">Fabada asturiana</b><i>14,50 €</i></span>
-        <span class="m-linea"><b data-t="ms.l2">Cachopo de ternera</b><i>26,00 €</i></span>
+        <span class="m-linea"><b data-t="ms.l1">Fabada asturiana</b><i data-cifra="14.5">14,50 €</i></span>
+        <span class="m-linea"><b data-t="ms.l2">Cachopo de ternera</b><i data-cifra="26">26,00 €</i></span>
         <span class="m-boton" data-t="ms.boton">Reservar mesa</span>
       </div>
     </article>
 
-    <article class="proyecto">
+    <article class="proyecto proyecto--escandallos revelar">
       <div class="proyecto-texto">
         <h3 data-t="p2.h3">Calculadora de escandallos</h3>
         <p data-t="p2.p">Calcula el coste real de cada ración, con las mermas de limpiar y cocinar, y el precio al que hay que venderla. Si escribes el precio de tu carta, te dice si estás perdiendo margen.</p>
@@ -130,13 +130,13 @@
         </div>
       </div>
       <div class="muestra muestra-escandallo" aria-hidden="true">
-        <span class="m-fila"><b data-t="me.coste">Coste por ración</b><i>6,04 €</i></span>
-        <span class="m-fila grande"><b data-t="me.pvp">Precio recomendado</b><i>22,13 €</i></span>
+        <span class="m-fila"><b data-t="me.coste">Coste por ración</b><i data-contar="6.04">6,04 €</i></span>
+        <span class="m-fila grande"><b data-t="me.pvp">Precio recomendado</b><i data-contar="22.13">22,13 €</i></span>
         <span class="m-aviso" data-t="me.aviso">A 18 € en carta: food cost del 36,9 %</span>
       </div>
     </article>
 
-    <article class="proyecto">
+    <article class="proyecto proyecto--gastos revelar">
       <div class="proyecto-texto">
         <h3 data-t="p3.h3">Resumen mensual de gastos</h3>
         <p data-t="p3.p">Un script que junta las facturas de todos los proveedores en Excel y saca el informe del mes: cuánto se ha gastado, con quién, en qué y qué productos han subido de precio.</p>
@@ -147,7 +147,7 @@
         </div>
       </div>
       <div class="muestra muestra-gastos" aria-hidden="true">
-        <span class="m-total">7.544,98 €</span>
+        <span class="m-total" data-contar="7544.98">7.544,98 €</span>
         <span class="m-barra" style="--w:100%"><b data-t="mg.carne">Carne</b></span>
         <span class="m-barra" style="--w:80%"><b data-t="mg.bebida">Bebida</b></span>
         <span class="m-barra" style="--w:71%"><b data-t="mg.pescado">Pescado</b></span>

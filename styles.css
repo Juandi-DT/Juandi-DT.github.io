@@ -112,6 +112,57 @@ main > section { padding-block: 64px; }
 .revelar { opacity: 0; transform: translateY(22px); }
 .revelar.visible { opacity: 1; transform: none; transition: opacity .7s var(--curva), transform .7s var(--curva); }
 
+/* Cada proyecto entra a su manera, y la manera dice algo de lo que hace:
+   la sidrería se abre como una carta sobre la mesa, la calculadora cuenta
+   sus cifras desde cero y el informe de gastos entra por el lado mientras
+   sus barras crecen. */
+.proyecto.revelar { transform: none; }
+.proyecto--sidreria.revelar {
+  transform: perspective(1000px) rotateX(9deg) translateY(26px);
+  transform-origin: top center;
+}
+.proyecto--escandallos.revelar { transform: translateY(40px) scale(.965); }
+.proyecto--gastos.revelar { transform: translateX(44px); }
+.proyecto.revelar.visible {
+  transform: none;
+  transition: opacity .65s var(--curva), transform .85s var(--curva);
+}
+
+/* Sidrería: las líneas de la carta se van escribiendo una detrás de otra */
+.proyecto--sidreria.revelar .muestra > span { opacity: 0; transform: translateX(-12px); }
+.proyecto--sidreria.revelar.visible .muestra > span {
+  opacity: 1; transform: none;
+  transition: opacity .45s var(--curva), transform .45s var(--curva);
+}
+.proyecto--sidreria.revelar.visible .muestra > span:nth-child(1) { transition-delay: .3s; }
+.proyecto--sidreria.revelar.visible .muestra > span:nth-child(2) { transition-delay: .4s; }
+.proyecto--sidreria.revelar.visible .muestra > span:nth-child(3) { transition-delay: .5s; }
+.proyecto--sidreria.revelar.visible .muestra > span:nth-child(4) { transition-delay: .6s; }
+.proyecto--sidreria.revelar.visible .muestra > span:nth-child(5) { transition-delay: .7s; }
+
+/* Escandallos: las dos filas suben y la cifra grande da un golpe seco
+   cuando el contador termina de subir */
+.proyecto--escandallos.revelar .m-fila { opacity: 0; transform: translateY(8px); }
+.proyecto--escandallos.revelar.visible .m-fila {
+  opacity: 1; transform: none;
+  transition: opacity .4s var(--curva), transform .4s var(--curva);
+}
+.proyecto--escandallos.revelar.visible .m-fila:nth-child(2) { transition-delay: .3s; }
+.proyecto--escandallos.revelar .m-aviso { opacity: 0; }
+.proyecto--escandallos.revelar.visible .m-aviso { animation: avisar .5s var(--curva) 1.4s both; }
+@keyframes avisar { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  .proyecto--escandallos.revelar.visible .m-fila.grande i { animation: cuadrar .5s var(--curva) 1.2s; }
+  @keyframes cuadrar {
+    0%, 100% { transform: scale(1); }
+    40% { transform: scale(1.12); }
+  }
+}
+
+/* Gastos: el total aparece y detrás van creciendo las barras, una a una */
+.proyecto--gastos.revelar .m-sube { opacity: 0; }
+.proyecto--gastos.revelar.visible .m-sube { animation: avisar .5s var(--curva) 1.5s both; }
+
 /* Portada */
 .portada { display: grid; gap: 48px; align-items: center; padding-top: 32px; }
 @media (min-width: 900px) { .portada { grid-template-columns: 1.35fr 1fr; } }
@@ -238,10 +289,10 @@ main > section { padding-block: 64px; }
   content: ""; position: absolute; inset: 0 auto 0 0; width: var(--w); background: #2e6b5c; border-radius: 4px; opacity: .92;
   transform: scaleX(0); transform-origin: left; transition: transform .8s var(--curva);
 }
-.revelar.visible .m-barra::before { transform: scaleX(1); }
 /* Las barras son los hijos 2, 3 y 4 de .muestra-gastos */
-.revelar.visible .m-barra:nth-child(3)::before { transition-delay: .1s; }
-.revelar.visible .m-barra:nth-child(4)::before { transition-delay: .2s; }
+.proyecto--gastos.visible .m-barra::before { transform: scaleX(1); transition-delay: .45s; }
+.proyecto--gastos.visible .m-barra:nth-child(3)::before { transition-delay: .6s; }
+.proyecto--gastos.visible .m-barra:nth-child(4)::before { transition-delay: .75s; }
 .m-barra b { position: relative; color: #fff; padding-left: 8px; line-height: 26px; font-size: .82rem; }
 .m-sube { color: #a4461f; font-weight: 700; font-size: .85rem; }
 
@@ -310,8 +361,12 @@ main > section { padding-block: 64px; }
     animation-iteration-count: 1 !important;
     transition-duration: .001ms !important;
   }
-  .revelar { opacity: 1; transform: none; }
+  .revelar, .proyecto.revelar { opacity: 1; transform: none; }
   .revelar .pasos li::before { transform: none; opacity: 1; }
   .m-barra::before { transform: scaleX(1); }
   .servicio::before { transform: scaleX(1); }
+  .proyecto--sidreria.revelar .muestra > span,
+  .proyecto--escandallos.revelar .m-fila,
+  .proyecto--escandallos.revelar .m-aviso,
+  .proyecto--gastos.revelar .m-sube { opacity: 1; transform: none; }
 }

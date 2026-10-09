@@ -11,6 +11,10 @@ const CONFIG = {
 
 const $ = (id) => document.getElementById(id);
 
+// Si el visitante pide menos movimiento, no se anima nada: ni las entradas
+// de las secciones ni los contadores.
+const quietas = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 /* ---------- Idioma ---------- */
 const CLAVE_IDIOMA = "portafolio.idioma";
 const IDIOMAS = Object.keys(TEXTOS); // ["es", "en"]
@@ -53,6 +57,7 @@ function aplicarIdioma(idioma) {
 
   pintarHoraComanda(idioma);
   pintarWhatsApp(idioma);
+  pintarCifras(idioma);
 }
 
 function cambiarIdioma(idioma) {
@@ -82,6 +87,50 @@ function pintarWhatsApp(idioma) {
   $("enlace-whatsapp").href = `https://wa.me/${CONFIG.whatsapp}?text=${mensaje}`;
   $("whatsapp-texto").textContent = "+" + CONFIG.whatsapp.replace(/^(\d{2})(\d{3})(\d{3})(\d{3})$/, "$1 $2 $3 $4");
   $("via-whatsapp").hidden = false;
+}
+
+/* ---------- Cifras de las muestras de proyecto ----------
+   Las cifras no están escritas en el HTML en un idioma concreto: van como
+   número en data-cifra o data-contar y se formatean según el idioma
+   (6,04 € en español, €6.04 en inglés). Las de data-contar, además, suben
+   desde cero cuando el proyecto aparece en pantalla. */
+function euros(valor, idioma) {
+  return valor.toLocaleString(idioma === "es" ? "es-ES" : "en-GB", {
+    style: "currency", currency: "EUR",
+    minimumFractionDigits: 2, maximumFractionDigits: 2,
+    // En español, Intl no pone punto de millar hasta cinco cifras. El informe
+    // de gastos sí lo pone, así que se fuerza para que digan lo mismo.
+    useGrouping: true,
+  });
+}
+
+function pintarCifras(idioma) {
+  for (const el of document.querySelectorAll("[data-cifra]")) {
+    el.textContent = euros(Number(el.dataset.cifra), idioma);
+  }
+  // Las que cuentan se dejan ya con su valor final y bien formateado; cuando
+  // el proyecto entra en pantalla, el contador las hace subir desde cero.
+  for (const el of document.querySelectorAll("[data-contar]")) {
+    el.textContent = euros(Number(el.dataset.contar), idioma);
+  }
+}
+
+function contarHasta(el) {
+  if (el.dataset.contado) return;
+  el.dataset.contado = "si";
+  const destino = Number(el.dataset.contar);
+  const idioma = document.documentElement.lang;
+  if (quietas) { el.textContent = euros(destino, idioma); return; }
+
+  const duracion = 1100;
+  const inicio = performance.now();
+  const paso = (ahora) => {
+    const avance = Math.min((ahora - inicio) / duracion, 1);
+    const suave = 1 - Math.pow(1 - avance, 3); // frena al final
+    el.textContent = euros(destino * suave, document.documentElement.lang);
+    if (avance < 1) requestAnimationFrame(paso);
+  };
+  requestAnimationFrame(paso);
 }
 
 /* ---------- Enlaces "Ver el código" a GitHub ---------- */
@@ -121,21 +170,31 @@ for (const boton of document.querySelectorAll("#selector-idioma button")) {
   boton.addEventListener("click", () => cambiarIdioma(boton.dataset.idioma));
 }
 
-/* ---------- Secciones que aparecen al llegar a ellas ---------- */
-// Si el navegador no lo soporta o el visitante pide menos movimiento, se ven sin más.
-const quietas = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const secciones = document.querySelectorAll(".revelar");
+/* ---------- Secciones y proyectos que aparecen al llegar a ellos ---------- */
+// Cada proyecto se observa por separado, para que entre cuando le toca y no
+// todos a la vez. Si el navegador no lo soporta o se pide menos movimiento,
+// se muestran sin animación.
+function mostrar(el) {
+  el.classList.add("visible");
+  // Solo las cifras de este elemento: las de un proyecto de dentro esperan a
+  // que le toque entrar a ese proyecto.
+  for (const cifra of el.querySelectorAll("[data-contar]")) {
+    if (cifra.closest(".revelar") === el) contarHasta(cifra);
+  }
+}
+
+const aparecen = document.querySelectorAll(".revelar");
 if (quietas || !("IntersectionObserver" in window)) {
-  secciones.forEach((s) => s.classList.add("visible"));
+  aparecen.forEach(mostrar);
 } else {
   const observador = new IntersectionObserver((entradas) => {
     for (const entrada of entradas) {
       if (!entrada.isIntersecting) continue;
-      entrada.target.classList.add("visible");
+      mostrar(entrada.target);
       observador.unobserve(entrada.target);
     }
   }, { rootMargin: "0px 0px -12% 0px", threshold: 0.08 });
-  secciones.forEach((s) => observador.observe(s));
+  aparecen.forEach((el) => observador.observe(el));
 }
 
 aplicarIdioma(idiomaGuardado());
