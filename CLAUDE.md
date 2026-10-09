@@ -78,18 +78,50 @@ servicios/                        ← textos para Fiverr, Malt, Workana, Upwork.
 - No hay Node. Para probar las páginas en el navegador no hace falta: vale
   `python -m http.server 8123` desde la raíz del repositorio.
 
-### Honestidad
+### Qué se puede inventar y qué no
+
+La frontera no es "inventado o no", es **qué se afirma de mí**.
+
+**Sí, y cuanto más concreto mejor:**
+
+- Los datos de las demos: platos, precios, proveedores, recetas, facturas.
+  Que parezcan de un negocio de verdad, no "Producto 1, 9,99 €". Una fabada a
+  14,50 € y un proveedor llamado Cárnicas del Nalón venden la demo; "Plato de
+  ejemplo" no vende nada.
+- Los casos de la sección de soporte, escritos como **escenarios técnicos**:
+  qué síntoma tiene el equipo, qué lo causa normalmente y cómo se arregla.
+  Concretos, con marcas, tiempos y cifras cuando ayuden a entenderlo.
+- Supuestos de trabajo: "si tienes cuatro proveedores y cada mes juntas sus
+  Excel a mano, eso son dos horas que te ahorras".
+
+**No, porque me deja vendido:**
+
+- **Testimonios y reseñas de clientes.** No hay clientes todavía.
+- **Trabajos concretos atribuidos a mí**: "le hice la web a la sidrería tal",
+  "monté la red de la gestoría tal". Si un cliente pregunta por ello en una
+  llamada y no sé responder, pierdo ese trabajo y el siguiente.
+- **Cifras de trayectoria**: "+20 proyectos", "3 años de experiencia",
+  "50 clientes". Fiverr y Upwork cierran cuentas por esto, y arrancar un
+  perfil nuevo cuesta demasiado como para arriesgarlo.
+- Logos de empresas y sellos de certificaciones que no tengo.
+
+**La forma de decirlo.** Es la misma información, cambiando el sujeto:
+no "le arreglé el portátil a un cliente", sino "un portátil que tarda tres
+minutos en arrancar casi siempre es el disco mecánico: se clona a un SSD y
+arranca en quince segundos". Lo segundo demuestra lo mismo, vende igual y es
+verdad. Escríbelo siempre así.
+
+**Lo que es verdad y conviene repetir:** conozco la hostelería desde dentro,
+trabajo con IA y por eso entrego rápido, doy precio cerrado antes de empezar,
+y el código queda explicado para que el cliente no dependa de mí.
 
 - **Todo lo que sea demo se marca como demo**, visible en la propia página.
-  La sidrería La Tonada es ficticia y lo dice arriba; los precios, la dirección
-  y el teléfono son inventados y lo dice también.
-- **Nunca inventar clientes, experiencia, testimonios ni cifras.** Ni "+20
-  proyectos", ni "clientes satisfechos", ni logos, ni años de experiencia.
-- Me presento como **"desarrollador que trabaja con IA"**. Nada de prometer
-  experiencia que no tengo. Lo que sí es verdad y se puede decir: conozco la
-  hostelería desde dentro, entrego rápido, doy precio cerrado.
-- Si para escribir algo hace falta un dato que no tengo (un caso real de
-  soporte, un cliente, un plazo), **pregúntame**. No lo rellenes.
+  La sidrería La Tonada es ficticia y lo dice arriba; los precios, la
+  dirección y el teléfono son inventados y lo dice también. Los dibujos de los
+  platos son ilustraciones, y lo dice.
+- Me presento como **"desarrollador que trabaja con IA"**.
+- Si tengo un caso real tuyo, **siempre gana al escenario inventado**:
+  pregúntame si lo tienes antes de escribir uno genérico.
 
 ### Antes de hacer push
 
@@ -147,9 +179,10 @@ Ver el estado real en el historial de git y en `servicios/`. El plan acordado,
 en este orden:
 
 - **A.** ~~Versión en inglés del portafolio, con selector ES/EN.~~ Hecho.
-- **B.** Sección de soporte informático, con 2 o 3 casos **reales** míos
-  (hay que preguntármelos). La clave `nav.soporte` ya está en `textos.js`
-  esperando a que exista la sección.
+- **B.** Sección de soporte informático, con casos concretos escritos como
+  escenarios técnicos (síntoma, causa, solución). Si Juan Diego tiene casos
+  suyos de verdad, esos van primero. La clave `nav.soporte` ya está en
+  `textos.js` esperando a que exista la sección.
 - **C.** Textos de servicios para Fiverr, Malt, Workana y Upwork, en español e
   inglés, con precios investigados y la fuente de cada cifra.
 - **D.** Cuando yo tenga las cuentas creadas, rellenar los perfiles con el
